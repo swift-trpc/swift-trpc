@@ -69,7 +69,7 @@ Pod::Spec.new do |spec|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # spec.platform     = :ios
+  spec.platform     = :ios, "12.0"
   # spec.platform     = :ios, "5.0"
 
   #  When using multiple platforms
@@ -97,6 +97,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
+  spec.swift_versions = "4.0"
   spec.source_files  = "Sources/**/*.swift"
 
   # spec.public_header_files = "Classes/**/*.h"
