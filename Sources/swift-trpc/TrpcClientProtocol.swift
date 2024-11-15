@@ -7,7 +7,7 @@
 
 public protocol TrpcClientProtocol {
     var serverUrl: String { get }
+    var baseHeaders: [String:String] { get }
     
-    func mutate() async throws -> AnyObject
-    func query() async throws -> AnyObject
+    func execute<T>(request: any TrpcRequest, responseType: T.Type) async throws -> AnyObject where T : Decodable;
 }
