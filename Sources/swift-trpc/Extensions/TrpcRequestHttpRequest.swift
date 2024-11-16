@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal extension TrpcRequest {
+internal extension TrpcRequestProtocol {
     func getHttpRequestForClient(trpcClient: TrpcClientProtocol) throws -> HttpClientRequestProtocol {
         return HttpClientRequest(
             path: self.path,
@@ -23,24 +23,22 @@ internal extension TrpcRequest {
             return [:]
         }
         
-        let data = try getEncodedInput()
-        let str = String(decoding: data, as: UTF8.self)
+        if self.hasInputData, let data = try self.serializeInput() {
+            let str = String(decoding: data, as: UTF8.self)
+            
+            return [
+                "input": str
+            ]
+        }
         
-        return [
-            "input": str
-        ]
+        return [:]
     }
     
     private func getBody() throws -> Data? {
-        if self.type == .mutation {
-            return try getEncodedInput()
+        if self.hasInputData, self.type == .mutation {
+            return try self.serializeInput()
         }
         
         return nil
-    }
-    
-    private func getEncodedInput() throws -> Data {
-        let encoder = JSONEncoder()
-        return try encoder.encode(self.input)
     }
 }

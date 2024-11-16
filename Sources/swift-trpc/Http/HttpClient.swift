@@ -11,8 +11,11 @@ import Foundation
 internal class HttpClient: HttpClientProtocol {
     var serverUrl: String
     
-    init(serverUrl: String) {
+    private var urlSession: URLSession
+
+    init(serverUrl: String, urlSession: URLSession) {
         self.serverUrl = serverUrl
+        self.urlSession = urlSession
     }
     
     func execute(request: any HttpClientRequestProtocol) async throws -> any HttpClientResponseProtocol {
@@ -33,11 +36,11 @@ internal class HttpClient: HttpClientProtocol {
     @available(iOS 13, macOS 10.15, *)
     private func executeUrlRequest(request: URLRequest) async throws -> (Data, URLResponse) {
         if #available(iOS 15, macOS 12.0, *) {
-            let result = try await URLSession.shared.data(for: request)
+            let result = try await urlSession.data(for: request)
             return result
         } else {
             return try await withCheckedThrowingContinuation({ continuation in
-                URLSession.shared.dataTask(with: request) { data, response, error in
+                urlSession.dataTask(with: request) { data, response, error in
                     if let error {
                         continuation.resume(throwing: error)
                     } else if let data, let response {

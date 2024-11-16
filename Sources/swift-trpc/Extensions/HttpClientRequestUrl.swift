@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension HttpClientRequestProtocol {
+internal extension HttpClientRequestProtocol {
     func createURL(serverUrl: String) throws -> URL {
         guard var baseUrl = URLComponents(string: serverUrl) else {
             throw HttpRequestError.invalidServerUrl(serverUrl: serverUrl)

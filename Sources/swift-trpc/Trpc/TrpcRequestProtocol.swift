@@ -5,13 +5,15 @@
 //  Created by Artem Tarasenko on 15.11.2024.
 //
 
-public protocol TrpcRequest {
-    associatedtype TInput: Encodable
-    
+import Foundation
+
+public protocol TrpcRequestProtocol {
     var type: TrpcRequestType { get }
     var path: String { get }
-    var input: TInput? { get }
     var headers: [String:String] { get }
+    var hasInputData: Bool { get }
+    
+    func serializeInput() throws -> Data?
 }
 
 
