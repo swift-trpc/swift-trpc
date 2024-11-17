@@ -16,7 +16,7 @@ Add the following to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-trpc/swift-trpc.git", from: "0.0.1")
+    .package(url: "https://github.com/swift-trpc/swift-trpc.git", from: "0.0.2")
 ]
 ```
 
@@ -25,7 +25,7 @@ dependencies: [
 Add the following to your `Podfile`:
 
 ```ruby
-pod 'swift-trpc', '~> 0.0.1'
+pod 'swift-trpc', '~> 0.0.2'
 ```
 
 ## Usage
@@ -111,25 +111,6 @@ Add authentication headers to all requests:
 
 ```swift
 client.baseHeaders["Authorization"] = "Bearer \(token)"
-```
-
-### Error Handling
-
-Handle tRPC errors in a Swift-idiomatic way:
-
-```swift
-let response = try await client.execute(request: request, responseType: User.self)
-
-if let error = response.error {
-    switch error.errorCode {
-    case "NOT_FOUND":
-        // Handle not found
-    case "UNAUTHORIZED":
-        // Handle unauthorized
-    default:
-        // Handle other errors
-    }
-}
 ```
 
 ## Features
