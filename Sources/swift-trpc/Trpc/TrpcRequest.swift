@@ -16,4 +16,10 @@ public struct TrpcRequest: TrpcRequestProtocol {
     public func serializeInput() throws -> Data? {
         nil
     }
+    
+    public init(type: TrpcRequestType, path: String, headers: [String : String]) {
+        self.type = type
+        self.path = path
+        self.headers = headers
+    }
 }
