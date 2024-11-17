@@ -8,11 +8,11 @@
 extension Dictionary {
     func merged(with another: [Key: Value]) -> [Key: Value] {
         var result = self
-        
+
         for (key, value) in another {
             result[key] = value
         }
-        
+
         return result
     }
 }

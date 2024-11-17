@@ -10,10 +10,10 @@
 public protocol TrpcClientProtocol {
     /// Base URL of the tRPC server
     var serverUrl: String { get }
-    
+
     /// Default headers included in all requests (e.g. auth tokens)
-    var baseHeaders: [String:String] { get }
-    
+    var baseHeaders: [String: String] { get }
+
     /// Executes a single tRPC request
     ///
     /// - Parameters:
@@ -29,8 +29,11 @@ public protocol TrpcClientProtocol {
     ///   - Decoding errors if response doesn't match expected type
     ///   - URLError for network-related failures
     @discardableResult
-    func execute<T>(request: any TrpcRequestProtocol, responseType: T.Type) async throws -> TrpcResponse<T> where T : Decodable
-    
+    func execute<T>(
+        request: any TrpcRequestProtocol,
+        responseType: T.Type
+    ) async throws -> TrpcResponse<T> where T: Decodable
+
     /// Executes multiple requests in a single batch. All requests must be same type (query/mutation).
     ///
     /// - Parameter requests: Array of requests to execute
@@ -44,5 +47,5 @@ public protocol TrpcClientProtocol {
     ///   - `HttpRequestError.couldntBuildUrl`: URL construction failed
     ///   - URLError for network-related failures
     @discardableResult
-    func executeBatch(requests: [any TrpcRequestProtocol]) async throws -> TrpcBatchResponseProtocol;
+    func executeBatch(requests: [any TrpcRequestProtocol]) async throws -> TrpcBatchResponseProtocol
 }

@@ -8,7 +8,7 @@
 @available(iOS 13, macOS 10.15, *)
 internal protocol HttpClientProtocol {
     var serverUrl: String { get }
-    
+
     @available(iOS 13, macOS 10.15, *)
-    func execute(request: HttpClientRequestProtocol) async throws -> HttpClientResponseProtocol;
+    func execute(request: HttpClientRequestProtocol) async throws -> HttpClientResponseProtocol
 }

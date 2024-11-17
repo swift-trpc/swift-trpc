@@ -10,37 +10,37 @@ import Foundation
 @available(iOS 13, macOS 10.15, *)
 internal class HttpClient: HttpClientProtocol {
     var serverUrl: String
-    
+
     private var urlSession: URLSession
 
     init(serverUrl: String, urlSession: URLSession) {
         self.serverUrl = serverUrl
         self.urlSession = urlSession
     }
-    
+
     func execute(request: any HttpClientRequestProtocol) async throws -> any HttpClientResponseProtocol {
         let url = try request.createURL(serverUrl: self.serverUrl)
         var urlRequest = URLRequest(url: url)
-        
+
         urlRequest.httpMethod = request.method.rawValue
-        
+
         for (key, value) in request.headers {
             urlRequest.setValue(value, forHTTPHeaderField: key)
         }
-        
+
         urlRequest.httpBody = request.body
-        
+
         let (data, response) = try await self.executeUrlRequest(request: urlRequest)
-        
+
         guard let httpResponse = response as? HTTPURLResponse else {
             throw HttpRequestError.responseNotHttp
         }
-        
+
         let status = httpResponse.statusCode
-        
+
         return HttpClientResponse(request: request, status: status, body: data)
     }
-    
+
     @available(iOS 13, macOS 10.15, *)
     private func executeUrlRequest(request: URLRequest) async throws -> (Data, URLResponse) {
         if #available(iOS 15, macOS 12.0, *) {

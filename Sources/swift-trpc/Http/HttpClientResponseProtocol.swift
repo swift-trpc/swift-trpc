@@ -9,7 +9,7 @@ import Foundation
 
 internal protocol HttpClientResponseProtocol {
     var request: HttpClientRequestProtocol? { get }
-    
+
     var status: Int { get }
     var body: Data { get }
 }

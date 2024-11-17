@@ -19,5 +19,5 @@ public protocol TrpcBatchResponseProtocol {
     /// - Throws:
     ///   - `JSONError` if response can't be decoded to specified type
     ///   - Index out of bounds error if invalid index provided
-    func get<T>(index: Int, responseType: T.Type) throws -> TrpcResponse<T> where T: Decodable;
+    func get<T>(index: Int, responseType: T.Type) throws -> TrpcResponse<T> where T: Decodable
 }

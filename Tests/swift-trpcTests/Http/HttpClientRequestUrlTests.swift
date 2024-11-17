@@ -11,10 +11,10 @@ import Testing
 struct HttpClientRequestUrlTests {
     @Test func createsBasicUrlWithoutQuery() async throws {
         let serverUrl = "http://server.host"
-        
+
         let httpRequest = HttpClientRequest(path: "health", method: .post, headers: [:], query: [:])
         let httpRequestUrl = try httpRequest.createURL(serverUrl: serverUrl)
-        
+
         #expect(httpRequestUrl.absoluteString == "http://server.host/health")
     }
 }

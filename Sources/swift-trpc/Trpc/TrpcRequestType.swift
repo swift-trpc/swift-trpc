@@ -10,7 +10,7 @@ public enum TrpcRequestType {
     /// Read operation sent as GET request.
     /// Used for fetching data without side effects.
     case query
-    
+
     /// Write operation sent as POST request.
     /// Used for operations that modify server state.
     case mutation

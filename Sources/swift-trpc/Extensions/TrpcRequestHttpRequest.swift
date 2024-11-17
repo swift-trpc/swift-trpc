@@ -17,28 +17,32 @@ internal extension TrpcRequestProtocol {
             body: try getBody()
         )
     }
-    
-    private func getQuery() throws -> [String:String] {
+
+    private func getQuery() throws -> [String: String] {
         if self.type == .mutation {
             return [:]
         }
-        
+
         if self.hasInputData, let data = try self.serializeInput() {
-            let str = String(decoding: data, as: UTF8.self)
-            
+            let str = String(data: data, encoding: .utf8)
+
+            guard let str else {
+                return [:]
+            }
+
             return [
                 "input": str
             ]
         }
-        
+
         return [:]
     }
-    
+
     private func getBody() throws -> Data? {
         if self.hasInputData, self.type == .mutation {
             return try self.serializeInput()
         }
-        
+
         return nil
     }
 }

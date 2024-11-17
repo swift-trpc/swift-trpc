@@ -13,15 +13,15 @@ struct TrpcInputfulRequestTests {
         let trpcRequest = TrpcInputfulRequest(type: .query, path: "trpc.method", input: "Hello, world")
         #expect(trpcRequest.hasInputData == true)
     }
-    
+
     @Test func returnsJSONSerializedDataOnSerializeInput() async throws {
         let input = "Hello, world"
         let trpcRequest = TrpcInputfulRequest(type: .query, path: "trpc.method", input: input)
-        
+
         let serializedInput = try trpcRequest.serializeInput()
-        
+
         #expect(serializedInput != nil)
-        
+
         let serializedInputString = String(data: serializedInput!, encoding: .utf8)
         #expect(serializedInputString! == "\"\(input)\"")
     }

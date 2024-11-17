@@ -9,16 +9,16 @@ import swift_trpc
 
 internal class StubTrpcClient: TrpcClientProtocol {
     public static let stubServerUrl = "http://server.com"
-    
+
     let serverUrl: String = StubTrpcClient.stubServerUrl
-    
-    public var baseHeaders: [String : String] = [:]
-    
-    func execute<T>(request: any TrpcRequestProtocol, responseType: T.Type) async throws -> TrpcResponse<T> where T : Decodable {
+
+    public var baseHeaders: [String: String] = [:]
+
+    func execute<T>(request: any TrpcRequestProtocol, responseType: T.Type) async throws -> TrpcResponse<T> where T: Decodable {
         // Ignore for now
         fatalError("Not implemented!")
     }
-    
+
     func executeBatch(requests: [any TrpcRequestProtocol]) async throws -> any TrpcBatchResponseProtocol {
         // Ignore for now
         fatalError("Not implemented!")

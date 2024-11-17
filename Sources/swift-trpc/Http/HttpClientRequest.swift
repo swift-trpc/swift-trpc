@@ -10,7 +10,7 @@ import Foundation
 struct HttpClientRequest: HttpClientRequestProtocol {
     var path: String
     var method: HttpMethod
-    var headers: [String : String]
-    var query: [String : String]
+    var headers: [String: String]
+    var query: [String: String]
     var body: Data?
 }

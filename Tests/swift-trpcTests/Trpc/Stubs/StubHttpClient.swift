@@ -10,20 +10,20 @@ import Foundation
 
 class StubHttpClient: HttpClientProtocol {
     var serverUrl: String
-    
+
     public var executedRequests: [HttpClientRequestProtocol] = []
-    
+
     public var response: HttpClientResponseProtocol
-    
+
     init(serverUrl: String, response: HttpClientResponseProtocol) {
         self.serverUrl = serverUrl
-        
+
         self.response = response
     }
-    
+
     func execute(request: any HttpClientRequestProtocol) async throws -> any HttpClientResponseProtocol {
         self.executedRequests.append(request)
-        
+
         return self.response
     }
 }

@@ -13,7 +13,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "swift-trpc",
-            targets: ["swift-trpc"]),
+            targets: ["swift-trpc"])
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -23,6 +23,6 @@ let package = Package(
         .testTarget(
             name: "swift-trpcTests",
             dependencies: ["swift-trpc"]
-        ),
+        )
     ]
 )
