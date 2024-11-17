@@ -12,7 +12,10 @@ public class TrpcClient: TrpcClientProtocol {
     private let httpClient: HttpClientProtocol
     private let jsonDecoder: JSONDecoder
     
-    public var baseHeaders: [String : String]
+    public var baseHeaders: [String : String] = [
+        "content-type": "application/json"
+    ]
+    
     public var serverUrl: String {
         get {
             httpClient.serverUrl
@@ -21,13 +24,11 @@ public class TrpcClient: TrpcClientProtocol {
     
     public init(serverUrl: String, urlSession: URLSession = URLSession.shared, jsonDecoder: JSONDecoder = JSONDecoder()) {
         self.httpClient = HttpClient(serverUrl: serverUrl, urlSession: urlSession)
-        self.baseHeaders = [:]
         self.jsonDecoder = jsonDecoder
     }
     
     internal init(httpClient: HttpClientProtocol, jsonDecoder: JSONDecoder = JSONDecoder()) {
         self.httpClient = httpClient
-        self.baseHeaders = [:]
         self.jsonDecoder = jsonDecoder
     }
 

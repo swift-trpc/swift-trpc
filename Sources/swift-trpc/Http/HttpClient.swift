@@ -20,7 +20,15 @@ internal class HttpClient: HttpClientProtocol {
     
     func execute(request: any HttpClientRequestProtocol) async throws -> any HttpClientResponseProtocol {
         let url = try request.createURL(serverUrl: self.serverUrl)
-        let urlRequest = URLRequest(url: url)
+        var urlRequest = URLRequest(url: url)
+        
+        urlRequest.httpMethod = request.method.rawValue
+        
+        for (key, value) in request.headers {
+            urlRequest.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        urlRequest.httpBody = request.body
         
         let (data, response) = try await self.executeUrlRequest(request: urlRequest)
         
