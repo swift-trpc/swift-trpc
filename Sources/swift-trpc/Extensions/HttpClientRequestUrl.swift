@@ -13,10 +13,13 @@ internal extension HttpClientRequestProtocol {
             throw HttpRequestError.invalidServerUrl(serverUrl: serverUrl)
         }
         
-        baseUrl.path = self.path
-        baseUrl.queryItems = self.query.map({ (key: String, value: String) in
-            URLQueryItem(name: key, value: value)
-        })
+        baseUrl.path = self.path.starts(with: "/") ? self.path : "/" + self.path
+        
+        if !self.query.isEmpty {
+            baseUrl.queryItems = self.query.map({ (key: String, value: String) in
+                URLQueryItem(name: key, value: value)
+            })
+        }
         
         guard let url = baseUrl.url else {
             throw HttpRequestError.couldntBuildUrl
