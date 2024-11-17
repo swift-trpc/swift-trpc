@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Default implementation of `TrpcClientProtocol` for making tRPC calls.
+/// Handles HTTP communication, request serialization, and response parsing.
 @available(iOS 13, macOS 10.15, *)
 public class TrpcClient: TrpcClientProtocol {
     private let httpClient: HttpClientProtocol
@@ -22,6 +24,12 @@ public class TrpcClient: TrpcClientProtocol {
         }
     }
     
+    /// Creates new tRPC client
+    ///
+    /// - Parameters:
+    ///   - serverUrl: Base URL of the tRPC server
+    ///   - urlSession: URLSession for network requests (uses shared by default)
+    ///   - jsonDecoder: Custom JSON decoder (uses default if not provided)
     public init(serverUrl: String, urlSession: URLSession = URLSession.shared, jsonDecoder: JSONDecoder = JSONDecoder()) {
         self.httpClient = HttpClient(serverUrl: serverUrl, urlSession: urlSession)
         self.jsonDecoder = jsonDecoder

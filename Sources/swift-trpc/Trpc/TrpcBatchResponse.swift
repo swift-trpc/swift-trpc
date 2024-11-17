@@ -11,7 +11,7 @@ public struct TrpcBatchResponse: TrpcBatchResponseProtocol {
     private var responses: [Any]
     private var jsonDecoder: JSONDecoder
     
-    public init(from: Data, jsonDecoder: JSONDecoder = JSONDecoder()) throws {
+    internal init(from: Data, jsonDecoder: JSONDecoder = JSONDecoder()) throws {
         self.jsonDecoder = jsonDecoder
         
         let serializationResult = try JSONSerialization.jsonObject(with: from)
