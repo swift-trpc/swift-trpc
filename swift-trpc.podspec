@@ -33,7 +33,7 @@ Pod::Spec.new do |spec|
   (There is certainly no limitation for this in LICENSE :3 )
                    DESC
 
-  spec.homepage     = "https://github.com/shabashab/swift-trpc"
+  spec.homepage     = "https://github.com/swift-trpc/swift-trpc"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -85,7 +85,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/shabashab/swift-trpc.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/swift-trpc/swift-trpc.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
