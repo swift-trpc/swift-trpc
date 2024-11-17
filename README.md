@@ -140,7 +140,7 @@ if let error = response.error {
 
 ## Example Project
 
-Check out the `swift-trpc-basic-example` directory for a complete SwiftUI application demonstrating:
+Check out the `[todo-example](https://github.com/swift-trpc/todo-example)` project for a complete SwiftUI application demonstrating:
 
 - Authentication flow
 - CRUD operations
