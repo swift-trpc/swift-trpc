@@ -18,4 +18,9 @@ internal class StubTrpcClient: TrpcClientProtocol {
         // Ignore for now
         fatalError("Not implemented!")
     }
+    
+    func executeBatch(requests: [any TrpcRequestProtocol]) async throws -> any TrpcBatchResponseProtocol {
+        // Ignore for now
+        fatalError("Not implemented!")
+    }
 }

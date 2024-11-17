@@ -8,7 +8,7 @@
 import Foundation
 
 struct HttpClientResponse: HttpClientResponseProtocol {
-    var request: any HttpClientRequestProtocol
+    var request: (any HttpClientRequestProtocol)?
     var status: Int
     var body: Data
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-@available(macOS 10.15, *)
+@available(iOS 13, macOS 10.15, *)
 internal class HttpClient: HttpClientProtocol {
     var serverUrl: String
     

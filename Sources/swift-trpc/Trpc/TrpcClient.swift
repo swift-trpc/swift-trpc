@@ -25,18 +25,27 @@ public class TrpcClient: TrpcClientProtocol {
         self.jsonDecoder = jsonDecoder
     }
     
-    internal init(serverUrl: String, httpClient: HttpClientProtocol, jsonDecoder: JSONDecoder = JSONDecoder()) {
+    internal init(httpClient: HttpClientProtocol, jsonDecoder: JSONDecoder = JSONDecoder()) {
         self.httpClient = httpClient
         self.baseHeaders = [:]
         self.jsonDecoder = jsonDecoder
     }
 
+    @discardableResult
     public func execute<T>(request: any TrpcRequestProtocol, responseType: T.Type) async throws -> TrpcResponse<T> where T : Decodable {
-        let httpRequest = try request.getHttpRequestForClient(trpcClient: self)
+        let httpRequest = try request.asHttpRequest(trpcClient: self)
         let response = try await httpClient.execute(request: httpRequest)
         
-        let decoded = try self.jsonDecoder.decode(TrpcResponse<T>.self, from: response.body)
+        let decoded = try self.jsonDecoder.decode(TrpcResponseCodable<T>.self, from: response.body)
         
-        return decoded
+        return TrpcResponse<T>(from: decoded)
+    }
+    
+    @discardableResult
+    public func executeBatch(requests: [any TrpcRequestProtocol]) async throws -> TrpcBatchResponseProtocol {
+        let request = try TrpcBatchRequest(requests: requests, trpcClient: self)
+        let response = try await self.httpClient.execute(request: request)
+        
+        return try TrpcBatchResponse(from: response.body, jsonDecoder: self.jsonDecoder)
     }
 }

@@ -13,7 +13,7 @@ struct TrpcRequestHttpRequestTests {
     @Test func queryRequestReturnsHttpRequestWithGetMethod() async throws {
         let trpcClient = StubTrpcClient()
         let trpcRequest = TrpcRequest(type: .query, path: "trpc.method")
-        let httpRequest = try trpcRequest.getHttpRequestForClient(trpcClient: trpcClient)
+        let httpRequest = try trpcRequest.asHttpRequest(trpcClient: trpcClient)
         
         #expect(httpRequest.method == .get)
     }
@@ -21,7 +21,7 @@ struct TrpcRequestHttpRequestTests {
     @Test func mutationRequestReturnsHttpRequestWithPostMethod() async throws {
         let trpcClient = StubTrpcClient()
         let trpcRequest = TrpcRequest(type: .mutation, path: "trpc.method")
-        let httpRequest = try trpcRequest.getHttpRequestForClient(trpcClient: trpcClient)
+        let httpRequest = try trpcRequest.asHttpRequest(trpcClient: trpcClient)
         
         #expect(httpRequest.method == .post)
     }
@@ -29,7 +29,7 @@ struct TrpcRequestHttpRequestTests {
     @Test func returnsHttpRequestWithValidPath() async throws {
         let trpcClient = StubTrpcClient()
         let trpcRequest = TrpcRequest(type: .query, path: "trpc.method")
-        let httpRequest = try trpcRequest.getHttpRequestForClient(trpcClient: trpcClient)
+        let httpRequest = try trpcRequest.asHttpRequest(trpcClient: trpcClient)
         
         #expect(httpRequest.path == trpcRequest.path)
     }
@@ -39,7 +39,7 @@ struct TrpcRequestHttpRequestTests {
         trpcClient.baseHeaders["user-agent"] = "swift-testing"
         
         let trpcRequest = TrpcRequest(type: .mutation, path: "trpc.method")
-        let httpRequest = try trpcRequest.getHttpRequestForClient(trpcClient: trpcClient)
+        let httpRequest = try trpcRequest.asHttpRequest(trpcClient: trpcClient)
         
         #expect(httpRequest.headers["user-agent"] == "swift-testing")
     }
@@ -52,7 +52,7 @@ struct TrpcRequestHttpRequestTests {
             "user-agent": "swift-trpc-testing",
             "authorization": "Bearer my_token"
         ])
-        let httpRequest = try trpcRequest.getHttpRequestForClient(trpcClient: trpcClient)
+        let httpRequest = try trpcRequest.asHttpRequest(trpcClient: trpcClient)
         
         // Rewrites the user-agent header of trpc client with request's one
         #expect(httpRequest.headers["user-agent"] == "swift-trpc-testing")
@@ -68,7 +68,7 @@ struct TrpcRequestHttpRequestTests {
         let data = dataString.data(using: .utf8)!
         let trpcRequest = StubTrpcRequestWithInput(type: .mutation, path: "trpc.method", input: data)
         
-        let httpRequest = try trpcRequest.getHttpRequestForClient(trpcClient: trpcClient)
+        let httpRequest = try trpcRequest.asHttpRequest(trpcClient: trpcClient)
         
         let httpRequestBody = httpRequest.body
         
@@ -86,7 +86,7 @@ struct TrpcRequestHttpRequestTests {
         let data = dataString.data(using: .utf8)!
         let trpcRequest = StubTrpcRequestWithInput(type: .mutation, path: "trpc.method", input: data)
         
-        let httpRequest = try trpcRequest.getHttpRequestForClient(trpcClient: trpcClient)
+        let httpRequest = try trpcRequest.asHttpRequest(trpcClient: trpcClient)
         
         #expect(httpRequest.query.count == 0)
     }
@@ -98,7 +98,7 @@ struct TrpcRequestHttpRequestTests {
         let data = dataString.data(using: .utf8)!
         let trpcRequest = StubTrpcRequestWithInput(type: .query, path: "trpc.method", input: data)
         
-        let httpRequest = try trpcRequest.getHttpRequestForClient(trpcClient: trpcClient)
+        let httpRequest = try trpcRequest.asHttpRequest(trpcClient: trpcClient)
         let httpRequestInput = httpRequest.query["input"]
         
         #expect(httpRequestInput != nil)
@@ -112,7 +112,7 @@ struct TrpcRequestHttpRequestTests {
         let data = dataString.data(using: .utf8)!
         let trpcRequest = StubTrpcRequestWithInput(type: .query, path: "trpc.method", input: data)
         
-        let httpRequest = try trpcRequest.getHttpRequestForClient(trpcClient: trpcClient)
+        let httpRequest = try trpcRequest.asHttpRequest(trpcClient: trpcClient)
         
         #expect(httpRequest.body == nil)
     }

@@ -15,7 +15,7 @@ class StubHttpClient: HttpClientProtocol {
     
     public var response: HttpClientResponseProtocol
     
-    init(serverUrl: String, response: HttpClientResponseProtocol, status: Int, body: Data?) {
+    init(serverUrl: String, response: HttpClientResponseProtocol) {
         self.serverUrl = serverUrl
         
         self.response = response

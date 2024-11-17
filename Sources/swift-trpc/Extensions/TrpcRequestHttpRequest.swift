@@ -8,7 +8,7 @@
 import Foundation
 
 internal extension TrpcRequestProtocol {
-    func getHttpRequestForClient(trpcClient: TrpcClientProtocol) throws -> HttpClientRequestProtocol {
+    func asHttpRequest(trpcClient: TrpcClientProtocol) throws -> HttpClientRequestProtocol {
         return HttpClientRequest(
             path: self.path,
             method: HttpMethod(rawValue: self.type == .mutation ? "POST" : "GET") ?? .get,
