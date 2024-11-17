@@ -10,14 +10,14 @@ import Foundation
 public struct TrpcRequest: TrpcRequestProtocol {
     public var type: TrpcRequestType
     public var path: String
-    public var headers: [String : String] = [:]
+    public var headers: [String : String]
     public let hasInputData: Bool = false
     
     public func serializeInput() throws -> Data? {
         nil
     }
     
-    public init(type: TrpcRequestType, path: String, headers: [String : String]) {
+    public init(type: TrpcRequestType, path: String, headers: [String : String] = [:]) {
         self.type = type
         self.path = path
         self.headers = headers
